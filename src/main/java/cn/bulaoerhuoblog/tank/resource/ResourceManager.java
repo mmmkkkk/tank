@@ -23,6 +23,8 @@ public class ResourceManager {
 
             bulletP = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/tankmissile.gif"));
 
+            wall = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/wall.gif"));
+
             for (int i = 0; i < 8; i++) {
                 explodes[i] = ImageIO.read(ResourceManager.class.getClassLoader().getResourceAsStream("images/blast" + (i + 1) + ".gif"));
             }
@@ -31,7 +33,7 @@ public class ResourceManager {
         }
     }
 
-    public BufferedImage p1tankL, p1tankU, p1tankD, p1tankR, e1tankU, e1tankD, e1tankL, e1tankR;
+    public BufferedImage p1tankL, p1tankU, p1tankD, p1tankR, e1tankU, e1tankD, e1tankL, e1tankR, wall;
 
     public BufferedImage bulletP;
 

@@ -6,6 +6,7 @@ import cn.bulaoerhuoblog.tank.controller.collidercheck.Collider;
 import cn.bulaoerhuoblog.tank.controller.collidercheck.ColliderChain;
 import cn.bulaoerhuoblog.tank.object.abstractfactory.*;
 import cn.bulaoerhuoblog.tank.object.model.GameObject;
+import cn.bulaoerhuoblog.tank.object.model.Wall;
 import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 
 import java.awt.*;
@@ -47,6 +48,11 @@ public class GameObjectManger {
             gameObjects.add(factoryMap.get(Group.BAD).createTank(50 + i * 60, 50, Dir.DOWN));
         }
 
+        // 初始化墙
+        for (int i = 0; i < 20; i++) {
+            gameObjects.add(new Wall(100 +  i * 15,200));
+            gameObjects.add(new Wall(100 +  i * 15,215));
+        }
     }
 
     public static GameObjectManger getInstance() {
