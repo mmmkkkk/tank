@@ -9,6 +9,12 @@ import cn.bulaoerhuoblog.tank.object.model.Tank;
  * @author makun
  */
 public class TankBoundCollider implements Collider {
+    private static final TankBoundCollider INSTANCE = new TankBoundCollider();
+
+    public static TankBoundCollider getInstance() {
+        return INSTANCE;
+    }
+    
     private Collider next;
 
     @Override

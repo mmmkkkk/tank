@@ -7,6 +7,12 @@ import cn.bulaoerhuoblog.tank.object.model.Tank;
  * @author makun
  */
 public class TankTankCollider implements Collider{
+    private static final TankTankCollider INSTANCE = new TankTankCollider();
+
+    public static TankTankCollider getInstance() {
+        return INSTANCE;
+    }
+    
     private Collider next = null;
 
     @Override

@@ -8,6 +8,13 @@ import cn.bulaoerhuoblog.tank.object.model.GameObject;
  * @author makun
  */
 public class BulletBoundCollider implements Collider {
+    private static final BulletBoundCollider INSTANCE = new BulletBoundCollider();
+
+    public static BulletBoundCollider getInstance() {
+        return INSTANCE;
+    }
+
+
     private Collider next;
 
     @Override

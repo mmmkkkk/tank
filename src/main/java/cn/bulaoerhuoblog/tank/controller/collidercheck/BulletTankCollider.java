@@ -9,6 +9,12 @@ import cn.bulaoerhuoblog.tank.object.abstractfactory.BaseTank;
  * @author makun
  */
 public class BulletTankCollider implements Collider {
+    private static final BulletTankCollider INSTANCE = new BulletTankCollider();
+
+    public static BulletTankCollider getInstance() {
+        return INSTANCE;
+    }
+    
     private Collider next = null;
 
     @Override

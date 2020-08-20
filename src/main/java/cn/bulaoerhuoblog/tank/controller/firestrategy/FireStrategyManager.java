@@ -11,8 +11,8 @@ import java.util.Map;
  * @author makun
  */
 public class FireStrategyManager {
-    private static FireStrategyManager INSTANCE = new FireStrategyManager();
     private static Map<String,FireStrategy> strategyMap = new HashMap<>();
+    private static FireStrategyManager INSTANCE = new FireStrategyManager();
 
     private FireStrategyManager() {
         // 加载fire策略  策略模式
@@ -20,6 +20,9 @@ public class FireStrategyManager {
         String[] classArr = classStrs.split(CommonConsts.PROP_DELIMITER);
         for (String className : classArr) {
             Object o = InstanceUtil.getInstance(className);
+            System.out.println(className);
+            System.out.println(o);
+            System.out.println(strategyMap == null);
             strategyMap.put(className.substring(className.lastIndexOf(".") + 1), (FireStrategy) o);
         }
     }
