@@ -1,7 +1,6 @@
 package cn.bulaoerhuoblog.tank.object.abstractfactory;
 
 import cn.bulaoerhuoblog.tank.common.Dir;
-import cn.bulaoerhuoblog.tank.common.Group;
 import cn.bulaoerhuoblog.tank.object.model.GameObject;
 import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 
@@ -11,14 +10,36 @@ import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 public abstract class BaseTank extends GameObject {
     public static final int DEFAULT_SPEED = Integer.parseInt(PropertyManager.getInstance().get("tankSpeed").toString());
 
+    protected int width;
+    protected int height;
+
     private boolean living = true;
     private boolean moving = true;
     private Dir dir = Dir.DOWN;
+
+    private int preX, preY;
 
     @Override
     public void die() {
         living = false;
         moving = false;
+    }
+
+
+    protected void move(int SPEED) {
+        if (!isMoving()) {
+            return;
+        }
+        preX = x;
+        preY = y;
+        switch (getDir()) {
+            case LEFT -> x -= SPEED;
+            case UP -> y -= SPEED;
+            case RIGHT -> x += SPEED;
+            case DOWN -> y += SPEED;
+        }
+        // update rect
+        getRect().setRect(x,y,width,height);
     }
 
 
@@ -46,13 +67,16 @@ public abstract class BaseTank extends GameObject {
         this.dir = dir;
     }
 
-    public int getX() {
-        return x;
+    public void back() {
+        this.x = this.preX;
+        this.y = this.preY;
     }
 
-    public int getY() {
-        return y;
+    public int getWidth() {
+        return width;
     }
 
-
+    public int getHeight() {
+        return height;
+    }
 }

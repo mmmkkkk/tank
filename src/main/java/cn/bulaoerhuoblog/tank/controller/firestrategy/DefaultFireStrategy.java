@@ -24,8 +24,8 @@ public class DefaultFireStrategy implements FireStrategy {
     @Override
     public void fire(BaseTank tank) {
         // TODO 子弹在正确位置出现
-        int bX = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH;
-        int bY = tank.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT;
+        int bX = tank.getX() + tank.getWidth() / 2 - Bullet.WIDTH;
+        int bY = tank.getY() + tank.getHeight() / 2 - Bullet.HEIGHT;
         Dir[] dirs = Dir.values();
         new Bullet(bX, bY, tank.getDir(),tank.getGroup());
     }

@@ -17,8 +17,7 @@ import java.util.Random;
  */
 public class EnemyTank extends BaseTank {
     private static int SPEED = DEFAULT_SPEED;
-    public static int WIDTH = ResourceManager.getInstance().p1tankU.getWidth();
-    public static int HEIGHT = ResourceManager.getInstance().p1tankU.getHeight();
+
 
     private FireStrategy fireStrategy;
 
@@ -30,13 +29,11 @@ public class EnemyTank extends BaseTank {
         this.y = y;
         setDir(dir);
         this.group = Group.BAD;
-        getRect().setRect(x,y,WIDTH,HEIGHT);
+        width = ResourceManager.getInstance().p1tankU.getWidth();
+        height = ResourceManager.getInstance().p1tankU.getHeight();
+        getRect().setRect(x,y,width,height);
         String fireStrategyName;
-        if (this.group == Group.BAD) {
-            fireStrategyName = PropertyManager.getInstance().get("badFS").toString();
-        } else {
-            fireStrategyName = PropertyManager.getInstance().get("goodFS").toString();
-        }
+        fireStrategyName = PropertyManager.getInstance().get("badFS").toString();
         fireStrategy = FireStrategyManager.getStrategy(fireStrategyName);
     }
 
@@ -54,47 +51,13 @@ public class EnemyTank extends BaseTank {
     }
 
     private void move() {
-        if (!isMoving()) {
-            return;
-        }
-        switch (getDir()) {
-            case LEFT -> x -= SPEED;
-            case UP -> y -= SPEED;
-            case RIGHT -> x += SPEED;
-            case DOWN -> y += SPEED;
-        }
-
+        super.move(SPEED);
         if (random.nextInt(100) > 95) {
             this.fire();
         }
-
         if (random.nextInt(100) > 95) {
             randomDir();
         }
-        boundsCheck();
-
-        // update rect
-        getRect().setRect(x,y,WIDTH,HEIGHT);
-
-    }
-
-    /**
-     * TODO 移动到碰撞检测
-     */
-    private void boundsCheck() {
-        if (this.x < 2) {
-            x = 2;
-        }
-        if (this.y < 28) {
-            y = 28;
-        }
-        if (this.x > GameObjectManger.GAME_WIDTH - Tank.WIDTH){
-            x = GameObjectManger.GAME_WIDTH - Tank.WIDTH - 2;
-        }
-        if (this.y > GameObjectManger.GAME_HEIGHT - Tank.HEIGHT) {
-            y = GameObjectManger.GAME_HEIGHT - Tank.HEIGHT - 2;
-        }
-
     }
 
     private void randomDir() {

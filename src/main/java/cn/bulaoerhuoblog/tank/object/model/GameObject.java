@@ -33,6 +33,14 @@ public abstract class GameObject {
      */
     public abstract void die();
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public Group getGroup() {
         return group;
     }
