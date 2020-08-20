@@ -8,6 +8,7 @@ import cn.bulaoerhuoblog.tank.object.model.GameObject;
 import cn.bulaoerhuoblog.tank.object.model.Tank;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,15 +33,10 @@ public class DefaultFireStrategy implements FireStrategy {
         List<GameObject> bullets = new ArrayList<>(2);
         GameObject bullet = null;
         try {
-            bullet = (GameObject)targetBullet.getDeclaredConstructor().newInstance(new Object[] {x,y,dir,group});
-        } catch (InstantiationException e) {
+            bullet = (GameObject)targetBullet.getDeclaredConstructor(new Class[] {int.class,int.class,Dir.class,Group.class}).newInstance(new Object[] {x,y,dir,group});
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new RuntimeException("DefaultFireStrategy 创建fire 失败");
         }
         bullets.add(bullet);
         return bullets;

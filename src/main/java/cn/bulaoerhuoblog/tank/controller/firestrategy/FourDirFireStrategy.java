@@ -33,15 +33,10 @@ public class FourDirFireStrategy implements FireStrategy {
         for (Dir dirTmp : dirs) {
             GameObject bullet = null;
             try {
-                bullet = (GameObject) targetBullet.getDeclaredConstructor().newInstance(new Object[]{x, y, dirTmp, group});
-            } catch (InstantiationException e) {
+                bullet = (GameObject) targetBullet.getDeclaredConstructor(new Class[] {int.class,int.class,Dir.class,Group.class}).newInstance(new Object[]{x, y, dirTmp, group});
+            }  catch (Exception e) {
                 e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+                throw new RuntimeException("FourDirFireStrategy 创建fire 失败");
             }
             bullets.add(bullet);
         }
