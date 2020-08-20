@@ -1,5 +1,6 @@
 package cn.bulaoerhuoblog.tank.controller.keyresp;
 
+import cn.bulaoerhuoblog.tank.common.Dir;
 import cn.bulaoerhuoblog.tank.common.Group;
 import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
 
@@ -69,6 +70,18 @@ public class PlayerKeyResp extends KeyAdapter {
             GameObjectManger.getInstance().playerStop();
         }
 
+        if (bL) {
+            GameObjectManger.getInstance().playerTankMove(Dir.LEFT);
+        }
+        if (bR) {
+            GameObjectManger.getInstance().playerTankMove(Dir.RIGHT);
+        }
+        if (bU) {
+            GameObjectManger.getInstance().playerTankMove(Dir.UP);
+        }
+        if (bD) {
+            GameObjectManger.getInstance().playerTankMove(Dir.DOWN);
+        }
 
     }
 }

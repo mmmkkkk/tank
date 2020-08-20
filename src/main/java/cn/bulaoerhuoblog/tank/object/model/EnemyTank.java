@@ -24,8 +24,8 @@ public class EnemyTank extends BaseTank {
     private Random random = new Random();
 
     public EnemyTank(int x, int y, Dir dir) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         setDir(dir);
         this.group = Group.BAD;
         width = ResourceManager.getInstance().p1tankU.getWidth();
@@ -38,23 +38,23 @@ public class EnemyTank extends BaseTank {
     public void paint(Graphics g) {
         if (isLiving()) {
             switch (getDir()) {
-                case UP -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankU : ResourceManager.getInstance().e1tankU, x, y, null);
-                case DOWN -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankD : ResourceManager.getInstance().e1tankD, x, y, null);
-                case LEFT -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankL : ResourceManager.getInstance().e1tankL, x, y, null);
-                case RIGHT -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankR : ResourceManager.getInstance().e1tankR, x, y, null);
+                case UP -> g.drawImage(ResourceManager.getInstance().e1tankU, getX(), getY(), null);
+                case DOWN -> g.drawImage(ResourceManager.getInstance().e1tankD, getX(), getY(), null);
+                case LEFT -> g.drawImage(ResourceManager.getInstance().e1tankL, getX(), getY(), null);
+                case RIGHT -> g.drawImage(ResourceManager.getInstance().e1tankR, getX(), getY(), null);
             }
             move();
         }
     }
 
     private void move() {
-        super.move(SPEED);
         if (random.nextInt(100) > 95) {
-            GameObjectManger.getInstance().fire(x,y,getDir(),group,getFireStrategy());
+            GameObjectManger.getInstance().fire(getX(),getY(),getDir(),group,getFireStrategy());
         }
         if (random.nextInt(100) > 95) {
             randomDir();
         }
+        super.move(SPEED);
     }
 
     private void randomDir() {

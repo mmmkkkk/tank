@@ -19,8 +19,8 @@ public class RectBullet extends BaseBullet {
 
 
     public RectBullet(int x, int y, Dir dir, Group group) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         setDir(dir);
         this.group = group;
         getRect().setRect(x,y,WIDTH,HEIGHT);
@@ -31,7 +31,7 @@ public class RectBullet extends BaseBullet {
         if (isLiving()) {
             Color c = g.getColor();
             g.setColor(Color.YELLOW);
-            g.fillRect(x,y,15,15);
+            g.fillRect(getX(),getY(),15,15);
             g.setColor(c);
             move();
         }
@@ -39,22 +39,14 @@ public class RectBullet extends BaseBullet {
 
     private void move() {
         switch (getDir()) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
+            case LEFT ->  setX(getX() - SPEED);
+            case UP -> setY(getY() - SPEED);
+            case RIGHT -> setX(getX() + SPEED);
+            case DOWN -> setY(getY() + SPEED);
         }
 
         // update rect
-        getRect().setRect(x,y,WIDTH,HEIGHT);
+        getRect().setRect(getX(),getY(),WIDTH,HEIGHT);
     }
 
 }

@@ -3,7 +3,8 @@ package cn.bulaoerhuoblog.tank.controller.collidercheck;
 import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
 import cn.bulaoerhuoblog.tank.object.abstractfactory.BaseTank;
 import cn.bulaoerhuoblog.tank.object.model.GameObject;
-import cn.bulaoerhuoblog.tank.object.model.Tank;
+
+import static cn.bulaoerhuoblog.tank.consts.CommonConsts.BOUND_COLLIDER_GRACE;
 
 /**
  * @author makun
@@ -25,9 +26,9 @@ public class TankBoundCollider implements Collider {
                 t1.back();
             } else if (t1.getY() < 28) {
                 t1.back();
-            } else if (t1.getX() > GameObjectManger.GAME_WIDTH - t1.getWidth()) {
+            } else if (t1.getX() > GameObjectManger.GAME_WIDTH - t1.getWidth() - BOUND_COLLIDER_GRACE) {
                 t1.back();
-            } else if (t1.getY() > GameObjectManger.GAME_HEIGHT - t1.getHeight()) {
+            } else if (t1.getY() > GameObjectManger.GAME_HEIGHT - t1.getHeight() - BOUND_COLLIDER_GRACE) {
                 t1.back();
             } else {
                 if (next != null) {

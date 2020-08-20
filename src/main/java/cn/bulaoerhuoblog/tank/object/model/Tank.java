@@ -2,14 +2,11 @@ package cn.bulaoerhuoblog.tank.object.model;
 
 import cn.bulaoerhuoblog.tank.common.Dir;
 import cn.bulaoerhuoblog.tank.common.Group;
-import cn.bulaoerhuoblog.tank.controller.firestrategy.FireStrategy;
-import cn.bulaoerhuoblog.tank.controller.firestrategy.FireStrategyManager;
 import cn.bulaoerhuoblog.tank.object.abstractfactory.BaseTank;
 import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 import cn.bulaoerhuoblog.tank.resource.ResourceManager;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * @author makun
@@ -17,11 +14,9 @@ import java.util.Random;
 public class Tank extends BaseTank {
     private static int SPEED = DEFAULT_SPEED;
 
-    private Random random = new Random();
-
     public Tank(int x, int y, Dir dir) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         setDir(dir);
         this.group = Group.GOOD;
         width = ResourceManager.getInstance().p1tankU.getWidth();
@@ -35,10 +30,10 @@ public class Tank extends BaseTank {
     public void paint(Graphics g) {
         if (isLiving()) {
             switch (getDir()) {
-                case UP -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankU : ResourceManager.getInstance().e1tankU, x, y, null);
-                case DOWN -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankD : ResourceManager.getInstance().e1tankD, x, y, null);
-                case LEFT -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankL : ResourceManager.getInstance().e1tankL, x, y, null);
-                case RIGHT -> g.drawImage(this.group == Group.GOOD ? ResourceManager.getInstance().p1tankR : ResourceManager.getInstance().e1tankR, x, y, null);
+                case UP -> g.drawImage(ResourceManager.getInstance().p1tankU, getX(), getY(), null);
+                case DOWN -> g.drawImage(ResourceManager.getInstance().p1tankD,  getX(), getY(), null);
+                case LEFT -> g.drawImage(ResourceManager.getInstance().p1tankL, getX(), getY(), null);
+                case RIGHT -> g.drawImage(ResourceManager.getInstance().p1tankR, getX(), getY(), null);
             }
             move();
         }
@@ -47,5 +42,4 @@ public class Tank extends BaseTank {
     private void move() {
         super.move(SPEED);
     }
-
 }

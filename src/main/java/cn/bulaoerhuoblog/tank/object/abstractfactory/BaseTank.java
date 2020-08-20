@@ -46,16 +46,16 @@ public abstract class BaseTank extends GameObject {
         if (!isMoving()) {
             return;
         }
-        preX = x;
-        preY = y;
+        preX = getX();
+        preY = getY();
         switch (getDir()) {
-            case LEFT -> x -= SPEED;
-            case UP -> y -= SPEED;
-            case RIGHT -> x += SPEED;
-            case DOWN -> y += SPEED;
+            case LEFT ->  setX(getX() - SPEED);
+            case UP -> setY(getY() - SPEED);
+            case RIGHT -> setX(getX() + SPEED);
+            case DOWN -> setY(getY() + SPEED);
         }
         // update rect
-        getRect().setRect(x,y,width,height);
+        getRect().setRect(getX(),getY(),width,height);
     }
 
 
@@ -76,8 +76,8 @@ public abstract class BaseTank extends GameObject {
     }
 
     public void back() {
-        this.x = this.preX;
-        this.y = this.preY;
+        setX(this.preX);
+        setY(this.preY);
     }
 
     public int getWidth() {

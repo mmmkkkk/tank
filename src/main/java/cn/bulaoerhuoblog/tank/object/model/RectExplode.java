@@ -19,8 +19,8 @@ public class RectExplode extends BaseExplode {
     private int step = 0;
 
     public RectExplode(int x, int y) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         new Audio("audio/blast.wav").start();
     }
 
@@ -28,7 +28,7 @@ public class RectExplode extends BaseExplode {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.RED);
-        g.fillRect(x, y, 10 * step, 10 * step);
+        g.fillRect(getX(), getY(), 10 * step, 10 * step);
         step++;
         if (step >= 5) {
             step = 0;

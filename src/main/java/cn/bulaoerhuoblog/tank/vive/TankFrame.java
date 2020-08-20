@@ -4,8 +4,6 @@ import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
 import cn.bulaoerhuoblog.tank.controller.keyresp.PlayerKeyResp;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -34,8 +32,9 @@ public class TankFrame extends Frame {
 
     /**
      * 解决闪烁问题
-      */
+     */
     Image offScreenImage = null;
+
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
@@ -44,14 +43,15 @@ public class TankFrame extends Frame {
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0, GameObjectManger.GAME_WIDTH, GameObjectManger.GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GameObjectManger.GAME_WIDTH, GameObjectManger.GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     /**
      * 绘制图形
+     *
      * @param g
      */
     @Override

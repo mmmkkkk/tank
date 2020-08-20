@@ -19,8 +19,8 @@ public class Bullet extends BaseBullet {
 
 
     public Bullet(int x, int y, Dir dir, Group group) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
         setDir(dir);
         this.group = group;
         getRect().setRect(x,y,WIDTH,HEIGHT);
@@ -29,32 +29,20 @@ public class Bullet extends BaseBullet {
     @Override
     public void paint(Graphics g) {
         if (isLiving()) {
-            g.drawImage(ResourceManager.getInstance().bulletP, x, y, null);
+            g.drawImage(ResourceManager.getInstance().bulletP, getX(), getY(), null);
             move();
         }
     }
 
     private void move() {
         switch (getDir()) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
+            case LEFT ->  setX(getX() - SPEED);
+            case UP -> setY(getY() - SPEED);
+            case RIGHT -> setX(getX() + SPEED);
+            case DOWN -> setY(getY() + SPEED);
         }
 
         // update rect
-        getRect().setRect(x,y,WIDTH,HEIGHT);
-        // TODO 碰撞检测
-//        if (x < 0 || y < 0 || x > GameObjectManger.GAME_WIDTH || y > GameObjectManger.GAME_HEIGHT) {
-//            living = false;
-//        }
+        getRect().setRect(getX(),getY(),WIDTH,HEIGHT);
     }
 }

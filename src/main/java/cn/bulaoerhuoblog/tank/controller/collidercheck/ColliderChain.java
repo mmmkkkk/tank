@@ -20,9 +20,7 @@ public class ColliderChain implements Collider {
         for (String className : classArr) {
             Object o = InstanceUtil.getInstance(className);
             Collider collider = (Collider) o;
-            if (pre != null) {
-                collider.setNext(pre);
-            }
+            collider.setNext(pre);
             pre = collider;
         }
         next = pre;

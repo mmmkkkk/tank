@@ -26,8 +26,7 @@ public class BulletTankCollider implements Collider {
                 if (next != null) {
                     next.collide(o1, o2);
                 }
-            }
-            if (b1.getRect().intersects(t1.getRect())) {
+            } else if (b1.getRect().intersects(t1.getRect())) {
                 t1.die();
                 GameObjectManger.getInstance().explode(t1.getX(), t1.getY(), t1.getGroup());
                 b1.die();
