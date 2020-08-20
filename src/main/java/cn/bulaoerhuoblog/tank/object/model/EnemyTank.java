@@ -49,7 +49,7 @@ public class EnemyTank extends BaseTank {
 
     private void move() {
         if (random.nextInt(100) > 95) {
-            GameObjectManger.getInstance().fire(getX(),getY(),getDir(),group,getFireStrategy());
+            GameObjectManger.getInstance().fire(getX() + getWidth() / 2,getY() + getHeight() / 2,getDir(),group,getFireStrategy());
         }
         if (random.nextInt(100) > 95) {
             randomDir();

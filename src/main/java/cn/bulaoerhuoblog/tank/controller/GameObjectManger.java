@@ -87,7 +87,7 @@ public class GameObjectManger {
 
     public void playerFire() {
         if (myTank.isLiving()) {
-            fire(myTank.getX(), myTank.getY(), myTank.getDir(), myTank.getGroup(), myTank.getFireStrategy());
+            fire(myTank.getX() + myTank.getWidth()/2, myTank.getY() + myTank.getHeight() /2, myTank.getDir(), myTank.getGroup(), myTank.getFireStrategy());
         }
     }
 
@@ -97,12 +97,9 @@ public class GameObjectManger {
     }
 
     public void fire(int x, int y, Dir dir, Group group, String strategy) {
+        // TODO 调整x、y使子弹从炮口发射l
         List<GameObject> bullets = factoryMap.get(group).createBullet(x, y, dir, group, strategy);
         addAllObject(bullets);
-    }
-
-    public void playerExplode(int x, int y) {
-        explode(myTank.getX(), myTank.getY(), myTank.getGroup());
     }
 
     public void explode(int x, int y, Group group) {

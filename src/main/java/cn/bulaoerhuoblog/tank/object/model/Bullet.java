@@ -17,32 +17,31 @@ public class Bullet extends BaseBullet {
     private static int SPEED = DEFAULT_SPEED;
 
 
-
     public Bullet(int x, int y, Dir dir, Group group) {
         setX(x);
         setY(y);
         setDir(dir);
         this.group = group;
-        getRect().setRect(x,y,WIDTH,HEIGHT);
+        getRect().setRect(x, y, WIDTH, HEIGHT);
     }
 
     @Override
     public void paint(Graphics g) {
         if (isLiving()) {
-            g.drawImage(ResourceManager.getInstance().bulletP, getX(), getY(), null);
+            g.drawImage(ResourceManager.getInstance().bulletP, getX() - WIDTH / 2, getY() - HEIGHT / 2, null);
             move();
         }
     }
 
     private void move() {
         switch (getDir()) {
-            case LEFT ->  setX(getX() - SPEED);
+            case LEFT -> setX(getX() - SPEED);
             case UP -> setY(getY() - SPEED);
             case RIGHT -> setX(getX() + SPEED);
             case DOWN -> setY(getY() + SPEED);
         }
 
         // update rect
-        getRect().setRect(getX(),getY(),WIDTH,HEIGHT);
+        getRect().setRect(getX(), getY(), WIDTH, HEIGHT);
     }
 }
