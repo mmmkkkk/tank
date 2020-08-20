@@ -1,5 +1,6 @@
 package cn.bulaoerhuoblog.tank;
 
+import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
 import cn.bulaoerhuoblog.tank.vive.TankFrame;
 
 /**
@@ -10,9 +11,8 @@ public class Main {
         TankFrame tf = new TankFrame();
 
 
-
         while (true) {
-            Thread.sleep(100);
+            Thread.sleep(GameObjectManger.REPAIN_INTERVAL);
             tf.repaint();
         }
     }

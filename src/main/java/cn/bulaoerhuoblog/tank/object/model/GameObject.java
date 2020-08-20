@@ -15,6 +15,11 @@ public abstract class GameObject {
     protected Group group = Group.BAD;
 
     /**
+     * 是否存活
+     */
+    private boolean living = true;
+
+    /**
      * 绘制自身
      * @param g
      */
@@ -44,4 +49,13 @@ public abstract class GameObject {
     public Group getGroup() {
         return group;
     }
+
+    public boolean isLiving() {
+        return living;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
+    }
+
 }

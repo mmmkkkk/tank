@@ -6,37 +6,44 @@ import cn.bulaoerhuoblog.tank.controller.collidercheck.Collider;
 import cn.bulaoerhuoblog.tank.controller.collidercheck.ColliderChain;
 import cn.bulaoerhuoblog.tank.object.abstractfactory.*;
 import cn.bulaoerhuoblog.tank.object.model.GameObject;
-import cn.bulaoerhuoblog.tank.object.model.Tank;
 import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author makun
  */
 public class GameObjectManger {
+    private static GameObjectManger INSTANCE = new GameObjectManger();
     public static final int GAME_WIDTH = Integer.parseInt(PropertyManager.getInstance().get("gameWidth").toString());
     public static final int GAME_HEIGHT = Integer.parseInt(PropertyManager.getInstance().get("gameHeight").toString());
+    public static final int REPAIN_INTERVAL = 50;
 
-    private static GameObjectManger INSTANCE = new GameObjectManger();
+    private BaseTank myTank;
+    private java.util.List<GameObject> gameObjects = new ArrayList<>();
+    private Map<Group, AbstractGameObjectFactory> factoryMap = new HashMap<>(8);
 
-    private Tank myTank;
-    public java.util.List<GameObject> gameObjects = new ArrayList<>();
-    public AbstractGameObjectFactory gf = new RectFactory();
-
-    // 碰撞检测
-    Collider collider = new ColliderChain();
+    /**
+     * 碰撞检测
+     */
+    private Collider collider = new ColliderChain();
 
 
     private GameObjectManger() {
+        factoryMap.put(Group.GOOD, new DefaultFactory());
+        factoryMap.put(Group.BAD, new Enemy1Factory());
+
         // 初始化玩家坦克
-        myTank = new Tank(100, 400, Dir.DOWN);
+        myTank = factoryMap.get(Group.GOOD).createTank(GAME_WIDTH / 2, GAME_HEIGHT, Dir.UP);
         gameObjects.add(myTank);
         // 初始化敌方坦克
         int initTankCount = Integer.parseInt(PropertyManager.getInstance().get("initTankCount").toString());
         for (int i = 0; i < initTankCount; i++) {
-            gameObjects.add(new Tank(50 + i * 80, 200, Dir.DOWN));
+            gameObjects.add(factoryMap.get(Group.BAD).createTank(50 + i * 80, 50, Dir.DOWN));
         }
     }
 
@@ -53,6 +60,11 @@ public class GameObjectManger {
 //        g.setColor(color);
 
         for (int i = 0; i < gameObjects.size(); i++) {
+            if (!gameObjects.get(i).isLiving()) {
+                removeObject(gameObjects.get(i));
+            }
+        }
+        for (int i = 0; i < gameObjects.size(); i++) {
             gameObjects.get(i).paint(g);
         }
 
@@ -62,45 +74,41 @@ public class GameObjectManger {
                 collider.collide(gameObjects.get(i), gameObjects.get(j));
             }
         }
-
     }
 
-    public  BaseExplode createExplode(int x, int y) {
-        return gf.createExplode(x, y);
+    // ------------------------------------------
+
+    public void playerStop() {
+        myTank.setMoving(false);
+    }
+    public void playerFire() {
+        fire(myTank.getX(), myTank.getY(), myTank.getDir(), myTank.getGroup(),myTank.getFireStrategy());
     }
 
-    public  BaseBullet createBullet(int x, int y, Dir dir, Group group) {
-        return gf.createBullet(x, y, dir, group);
+    public void fire(int x, int y, Dir dir, Group group,String strategy) {
+        List<GameObject> bullets = factoryMap.get(group).createBullet(x, y, dir, group,strategy);
+        addAllObject(bullets);
     }
 
+    public void playerExplode(int x,int y) {
+        explode(myTank.getX(),myTank.getY(),myTank.getGroup());
+    }
+
+    public void explode(int x,int y,Group group) {
+        BaseExplode explode = factoryMap.get(group).createExplode(x,y);
+        addObject(explode);
+    }
+    // ---------------------------------------------
 
     public void removeObject(Object o) {
         gameObjects.remove(o);
     }
+    public void addObject(GameObject o) {
+        gameObjects.add(o);
+    }
+    public void addAllObject(List<GameObject> o) {
+        gameObjects.addAll(o);
+    }
 
-
-    /**
-     * TODO 响应按键
-     */
-//    private void setMainTankDir() {
-//        if (!bL && !bR && !bU && !bD) {
-//            myTank.setMoving(false);
-//        } else {
-//            myTank.setMoving(true);
-//            if (bL) {
-//                myTank.setDir(Dir.LEFT);;
-//            }
-//            if (bR) {
-//                myTank.setDir(Dir.RIGHT);;
-//            }
-//            if (bU) {
-//                myTank.setDir(Dir.UP);;
-//            }
-//            if (bD) {
-//                myTank.setDir(Dir.DOWN);;
-//            }
-//        }
-//    }
-
-
+    // ------------------------------------------------
 }

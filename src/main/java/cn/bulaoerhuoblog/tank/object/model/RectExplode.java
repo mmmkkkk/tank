@@ -1,8 +1,9 @@
-package cn.bulaoerhuoblog.tank.object.abstractfactory;
+package cn.bulaoerhuoblog.tank.object.model;
 
+import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
+import cn.bulaoerhuoblog.tank.object.abstractfactory.BaseExplode;
 import cn.bulaoerhuoblog.tank.resource.Audio;
 import cn.bulaoerhuoblog.tank.resource.ResourceManager;
-import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
 
 import java.awt.*;
 
@@ -31,8 +32,8 @@ public class RectExplode extends BaseExplode {
         step++;
         if (step >= 5) {
             step = 0;
-            gm.gameObjects.remove(this);
         }
         g.setColor(c);
     }
+
 }

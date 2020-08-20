@@ -10,18 +10,34 @@ import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 public abstract class BaseTank extends GameObject {
     public static final int DEFAULT_SPEED = Integer.parseInt(PropertyManager.getInstance().get("tankSpeed").toString());
 
+
+    /**
+     * tank宽
+     */
     protected int width;
+    /**
+     * tank高
+     */
     protected int height;
 
-    private boolean living = true;
+
+    /**
+     * 是否移动
+     */
     private boolean moving = true;
+    /**
+     * 方向
+     */
     private Dir dir = Dir.DOWN;
 
     private int preX, preY;
 
+    private String fireStrategy;
+
+
     @Override
     public void die() {
-        living = false;
+        setLiving(false);
         moving = false;
     }
 
@@ -42,14 +58,6 @@ public abstract class BaseTank extends GameObject {
         getRect().setRect(x,y,width,height);
     }
 
-
-    public boolean isLiving() {
-        return living;
-    }
-
-    public void setLiving(boolean living) {
-        this.living = living;
-    }
 
     public boolean isMoving() {
         return moving;
@@ -78,5 +86,14 @@ public abstract class BaseTank extends GameObject {
 
     public int getHeight() {
         return height;
+    }
+
+
+    public String getFireStrategy() {
+        return fireStrategy;
+    }
+
+    public void setFireStrategy(String fireStrategy) {
+        this.fireStrategy = fireStrategy;
     }
 }

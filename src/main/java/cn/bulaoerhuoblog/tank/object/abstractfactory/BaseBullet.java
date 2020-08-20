@@ -12,15 +12,6 @@ public abstract class BaseBullet extends GameObject {
     public static final int DEFAULT_SPEED = Integer.parseInt(PropertyManager.getInstance().get("bulletSpeed").toString());
     private Dir dir;
 
-    private boolean living = true;
-
-    public boolean isLiving() {
-        return living;
-    }
-
-    public void setLiving(boolean living) {
-        this.living = living;
-    }
 
     @Override
     public void die() {

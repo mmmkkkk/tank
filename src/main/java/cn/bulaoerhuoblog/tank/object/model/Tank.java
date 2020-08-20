@@ -17,9 +17,6 @@ import java.util.Random;
 public class Tank extends BaseTank {
     private static int SPEED = DEFAULT_SPEED;
 
-
-    private FireStrategy fireStrategy;
-
     private Random random = new Random();
 
     public Tank(int x, int y, Dir dir) {
@@ -33,7 +30,6 @@ public class Tank extends BaseTank {
         setMoving(false);
         String fireStrategyName;
         fireStrategyName = PropertyManager.getInstance().get("goodFS").toString();
-        fireStrategy = FireStrategyManager.getStrategy(fireStrategyName);
     }
 
     @Override
@@ -53,12 +49,4 @@ public class Tank extends BaseTank {
         super.move(SPEED);
     }
 
-
-    private void randomDir() {
-        setDir(Dir.values()[random.nextInt(4)]);
-    }
-
-    public void fire() {
-        fireStrategy.fire(this);
-    }
 }

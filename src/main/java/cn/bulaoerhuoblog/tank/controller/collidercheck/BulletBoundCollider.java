@@ -16,7 +16,6 @@ public class BulletBoundCollider implements Collider {
             BaseBullet b1 = (BaseBullet) o1;
             if (b1.getX() < 0 || b1.getY() < 0 || b1.getX() > GameObjectManger.GAME_WIDTH || b1.getY() > GameObjectManger.GAME_HEIGHT) {
                 b1.die();
-                GameObjectManger.getInstance().removeObject(b1);
                 return;
             }
             next.collide(o1, o2);

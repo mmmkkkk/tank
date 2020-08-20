@@ -19,7 +19,6 @@ public class EnemyTank extends BaseTank {
     private static int SPEED = DEFAULT_SPEED;
 
 
-    private FireStrategy fireStrategy;
 
 
     private Random random = new Random();
@@ -34,7 +33,6 @@ public class EnemyTank extends BaseTank {
         getRect().setRect(x,y,width,height);
         String fireStrategyName;
         fireStrategyName = PropertyManager.getInstance().get("badFS").toString();
-        fireStrategy = FireStrategyManager.getStrategy(fireStrategyName);
     }
 
     @Override
@@ -53,7 +51,7 @@ public class EnemyTank extends BaseTank {
     private void move() {
         super.move(SPEED);
         if (random.nextInt(100) > 95) {
-            this.fire();
+            GameObjectManger.getInstance().fire(x,y,getDir(),group,getFireStrategy());
         }
         if (random.nextInt(100) > 95) {
             randomDir();
@@ -64,7 +62,5 @@ public class EnemyTank extends BaseTank {
         setDir(Dir.values()[random.nextInt(4)]);
     }
 
-    public void fire() {
-        fireStrategy.fire(this);
-    }
+
 }

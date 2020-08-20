@@ -10,7 +10,7 @@ class FireStrategyManagerTest {
 
     @Test
     public void testGetStrategy() {
-        FireStrategy fireStrategy = FireStrategyManager.getStrategy("DefaultFire");
+        FireStrategy fireStrategy = FireStrategyManager.getInstance().getStrategy("DefaultFire");
         assertNotNull(fireStrategy);
     }
 
