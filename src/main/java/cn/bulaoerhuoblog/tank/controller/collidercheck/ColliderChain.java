@@ -10,7 +10,7 @@ import cn.bulaoerhuoblog.tank.resource.PropertyManager;
  * @author makun
  */
 public class ColliderChain implements Collider {
-    private Collider next = null;
+    private Collider next;
 
     public ColliderChain() {
         // 加载碰撞检测 责任链模式
@@ -30,7 +30,9 @@ public class ColliderChain implements Collider {
 
     @Override
     public void collide(GameObject o1, GameObject o2) {
-        next.collide(o1,o2);
+        if (next != null) {
+            next.collide(o1, o2);
+        }
     }
 
     @Override

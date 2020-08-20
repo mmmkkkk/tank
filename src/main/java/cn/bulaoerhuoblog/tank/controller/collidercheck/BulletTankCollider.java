@@ -14,7 +14,7 @@ public class BulletTankCollider implements Collider {
     public static BulletTankCollider getInstance() {
         return INSTANCE;
     }
-    
+
     private Collider next = null;
 
     @Override
@@ -23,18 +23,22 @@ public class BulletTankCollider implements Collider {
             BaseBullet b1 = (BaseBullet) o1;
             BaseTank t1 = (BaseTank) o2;
             if (b1.getGroup() == t1.getGroup()) {
-                next.collide(o1,o2);
+                if (next != null) {
+                    next.collide(o1, o2);
+                }
             }
             if (b1.getRect().intersects(t1.getRect())) {
                 t1.die();
-                GameObjectManger.getInstance().explode(t1.getX(),t1.getY(),t1.getGroup());
+                GameObjectManger.getInstance().explode(t1.getX(), t1.getY(), t1.getGroup());
                 b1.die();
             }
 
         } else if (o1 instanceof BaseTank && o2 instanceof BaseBullet) {
             collide(o2, o1);
         } else {
-            next.collide(o1, o2);
+            if (next != null) {
+                next.collide(o1, o2);
+            }
         }
     }
 

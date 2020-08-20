@@ -25,7 +25,9 @@ public class BulletBoundCollider implements Collider {
                 b1.die();
                 return;
             }
-            next.collide(o1, o2);
+            if (next != null) {
+                next.collide(o1, o2);
+            }
         }
     }
 

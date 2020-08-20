@@ -6,13 +6,13 @@ import cn.bulaoerhuoblog.tank.object.model.Tank;
 /**
  * @author makun
  */
-public class TankTankCollider implements Collider{
+public class TankTankCollider implements Collider {
     private static final TankTankCollider INSTANCE = new TankTankCollider();
 
     public static TankTankCollider getInstance() {
         return INSTANCE;
     }
-    
+
     private Collider next = null;
 
     @Override
@@ -25,7 +25,9 @@ public class TankTankCollider implements Collider{
                 t2.back();
             }
         }
-        next.collide(o1,o2);
+        if (next != null) {
+            next.collide(o1, o2);
+        }
     }
 
     @Override

@@ -14,7 +14,7 @@ public class TankBoundCollider implements Collider {
     public static TankBoundCollider getInstance() {
         return INSTANCE;
     }
-    
+
     private Collider next;
 
     @Override
@@ -30,7 +30,9 @@ public class TankBoundCollider implements Collider {
             } else if (t1.getY() > GameObjectManger.GAME_HEIGHT - t1.getHeight()) {
                 t1.back();
             } else {
-                next.collide(o1, o2);
+                if (next != null) {
+                    next.collide(o1, o2);
+                }
             }
         }
     }
