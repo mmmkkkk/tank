@@ -38,7 +38,7 @@ public class GameObjectManger {
         factoryMap.put(Group.BAD, new Enemy1Factory());
 
         // 初始化玩家坦克
-        myTank = factoryMap.get(Group.GOOD).createTank(GAME_WIDTH / 2, GAME_HEIGHT, Dir.UP);
+        myTank = factoryMap.get(Group.GOOD).createTank(GAME_WIDTH / 2, GAME_HEIGHT - 100, Dir.UP);
         gameObjects.add(myTank);
         // 初始化敌方坦克
         int initTankCount = Integer.parseInt(PropertyManager.getInstance().get("initTankCount").toString());
