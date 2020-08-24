@@ -3,11 +3,12 @@ package cn.bulaoerhuoblog.tank.object.model;
 import cn.bulaoerhuoblog.tank.common.Group;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @author makun
  */
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
     private int x, y;
 
     private Rectangle rect = new Rectangle();

@@ -10,6 +10,7 @@ import cn.bulaoerhuoblog.tank.object.model.Wall;
 import cn.bulaoerhuoblog.tank.resource.PropertyManager;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,7 @@ public class GameObjectManger {
         factoryMap.put(Group.BAD, new Enemy1Factory());
         // 初始化玩家坦克
         myTank = factoryMap.get(Group.GOOD).createTank(GAME_WIDTH / 2, GAME_HEIGHT - 100, Dir.UP);
+
         gameObjects.add(myTank);
         // 初始化敌方坦克
         int initTankCount = Integer.parseInt(PropertyManager.getInstance().get("initTankCount").toString());
@@ -50,8 +52,8 @@ public class GameObjectManger {
 
         // 初始化墙
         for (int i = 0; i < 20; i++) {
-            gameObjects.add(new Wall(100 +  i * 15,200));
-            gameObjects.add(new Wall(100 +  i * 15,215));
+            gameObjects.add(new Wall(100 + i * 15, 200));
+            gameObjects.add(new Wall(100 + i * 15, 215));
         }
     }
 
@@ -93,7 +95,7 @@ public class GameObjectManger {
 
     public void playerFire() {
         if (myTank.isLiving()) {
-            fire(myTank.getX() + myTank.getWidth()/2, myTank.getY() + myTank.getHeight() /2, myTank.getDir(), myTank.getGroup(), myTank.getFireStrategy());
+            fire(myTank.getX() + myTank.getWidth() / 2, myTank.getY() + myTank.getHeight() / 2, myTank.getDir(), myTank.getGroup(), myTank.getFireStrategy());
         }
     }
 
@@ -128,5 +130,25 @@ public class GameObjectManger {
 
     // ------------------------------------------------
 
+    public void save() {
+        File f = new File("/home/makun/IdeaProjects/temp/tank");
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));) {
+            oos.writeObject(gameObjects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load() {
+        File f = new File("/home/makun/IdeaProjects/temp/tank");
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));) {
+            gameObjects = (List)ois.readObject();
+            myTank = (BaseTank) gameObjects.get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

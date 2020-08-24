@@ -1,7 +1,6 @@
 package cn.bulaoerhuoblog.tank.controller.keyresp;
 
 import cn.bulaoerhuoblog.tank.common.Dir;
-import cn.bulaoerhuoblog.tank.common.Group;
 import cn.bulaoerhuoblog.tank.controller.GameObjectManger;
 
 import java.awt.event.KeyAdapter;
@@ -33,11 +32,16 @@ public class PlayerKeyResp extends KeyAdapter {
             case KeyEvent.VK_DOWN:
                 bD = true;
                 break;
-
-            default :
+            case KeyEvent.VK_S:
+                GameObjectManger.getInstance().save();
+                break;
+            case KeyEvent.VK_L:
+                GameObjectManger.getInstance().load();
+                break;
+            default:
                 break;
         }
-            setMainTankDir();
+        setMainTankDir();
     }
 
     @Override
@@ -62,7 +66,7 @@ public class PlayerKeyResp extends KeyAdapter {
             default:
                 break;
         }
-            setMainTankDir();
+        setMainTankDir();
     }
 
     private void setMainTankDir() {
